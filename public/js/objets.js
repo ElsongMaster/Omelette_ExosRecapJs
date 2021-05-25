@@ -12,12 +12,12 @@ let produits = [
   new Ingredient("un Oignon", "entier", 1.1),
 ];
 
-let panier1 = { nom: "un grand panier ", panierContenu: [] };
-let panier2 = { nom: "un petit panier ", panierContenu: [] };
-let panier3 = { nom: "un panier moyen", panierContenu: [] };
+let panier1 = { nom: "son grand panier ", panierContenu: [] };
+let panier2 = { nom: "son petit panier ", panierContenu: [] };
+let panier3 = { nom: "son panier moyen", panierContenu: [] };
 let tabPaniers = [panier1, panier2, panier3];
 let epicerie = new Lieu("epicerie", tabPaniers, produits);
 
-let bol = new Bol("", "mélanger", []);
+let bol = new Bol("bol", "mélanger", []);
 
 export { couteau, poele, epicerie, client, maison, bol };

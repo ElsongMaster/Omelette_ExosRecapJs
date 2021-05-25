@@ -41,7 +41,7 @@ class Personne {
     this.mainDroite.contenu = null;
   }
 
-  fairCuir(contenantProduit, outil) {
+  faitCuir(contenantProduit, outil) {
     outil.contenu.push(
       ...contenantProduit.contenu.splice(0, contenantProduit.contenu.length)
     );
