@@ -24,6 +24,13 @@ class Personne {
   couper(ingredient, outil) {
     ingredient.etat = outil.action;
   }
+
+  deposerPanier(epicerie) {
+    console.log(`${this.nom} vient de déposer ${this.mainDroite.contenu.nom}`);
+    epicerie.paniers.push(this.mainDroite.contenu);
+    this.mainDroite.contenu = null;
+  }
+
   remplirSacDeCourse(epicerie) {
     let monPanier = this.mainDroite.contenu;
     for (let i = monPanier.length - 1; i >= 0; i--) {
@@ -32,6 +39,14 @@ class Personne {
     }
     epicerie.paniers.push(this.mainDroite.contenu);
     this.mainDroite.contenu = null;
+  }
+
+  fairCuir(contenantProduit, outil) {
+    outil.contenu.push(
+      ...contenantProduit.contenu.splice(0, contenantProduit.contenu.length)
+    );
+    console.log(`${this.nom} verse le mélange sur ${outil.nom}`);
+    outil.cuir();
   }
 }
 
@@ -47,10 +62,10 @@ class Main {
     this.contenu = produit;
     this.type = produit.nom;
     contenantOrigine.splice(contenantOrigine.indexOf(produit), 1);
-    console.log(`${this.nom} a pris ${this.type}`);
-    this.contenu.push(produit);
+    console.log(`${this.personne.nom} a pris ${this.type}`);
   }
-  mettrePanier(contenant) {
+
+  mettreDans(contenant) {
     contenant.push(this.contenu);
     this.contenu = null;
   }
@@ -85,10 +100,13 @@ class Poele extends Outil {
     this.contenu = [];
   }
 
-  cuir(produit) {
+  cuir() {
     setTimeout(() => {
-      produit.etat = this.action;
+      this.contenu.forEach((elt) => {
+        elt.etat = this.action;
+      });
     }, 4000);
+    console.log(`Ca sent bon! je pense que mon omelette est prête. A table`);
   }
 }
 

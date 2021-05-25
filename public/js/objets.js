@@ -2,8 +2,8 @@ import { Ingredient, Lieu, Personne, Outil, Poele, Bol } from "./classes.js";
 
 let maison = new Lieu("Casa", [], []);
 let client = new Personne("Elson", maison, 50);
-let couteau = new Outil("couteau", "coupé");
-let poele = new Poele("poele", "cuit");
+let couteau = new Outil("le couteau", "coupé");
+let poele = new Poele(" la poele", "cuit");
 
 let produits = [
   new Ingredient("un oeuf", "entier", 1),
@@ -11,10 +11,12 @@ let produits = [
   new Ingredient("des epices curry", "moulu", 1.5),
   new Ingredient("un Oignon", "entier", 1.1),
 ];
-let panier1 = { nom: "un panier Légumes", contenu: [] };
-let panier2 = { nom: "un panier produit laitiers", contenu: [] };
-let panier3 = { nom: "un panier Boissons", contenu: [] };
-let epicerie = new Lieu("epicerie", [panier1, panier2, panier3], produits);
+
+let panier1 = { nom: "un grand panier ", panierContenu: [] };
+let panier2 = { nom: "un petit panier ", panierContenu: [] };
+let panier3 = { nom: "un panier moyen", panierContenu: [] };
+let tabPaniers = [panier1, panier2, panier3];
+let epicerie = new Lieu("epicerie", tabPaniers, produits);
 
 let bol = new Bol("", "mélanger", []);
 
