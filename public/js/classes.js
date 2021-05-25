@@ -3,35 +3,56 @@ class Personne {
     this.nom = nom;
     this.lieu = lieu;
     this.argent = argent;
-    this.mainDroite = Main("main droite");
-    this.mainGauche = Main("main Gauche");
+    this.mainDroite = new Main("main droite", this);
+    this.mainGauche = new Main("main Gauche", this);
     this.sacCourse = [];
   }
 
   seDeplacer(lieu) {
+    console.log(
+      `${this.nom} est actuellement à ${
+        lieu.nom == "Casa" ? "la " + lieu.nom : "l' " + lieu.nom
+      }`
+    );
+
     this.lieu = lieu;
+    lieu.personnes.push(this);
   }
   payerArticle(article) {
     this.argent -= article.prix;
-
-    this.mainDroite.mettre(article, this.sacCourse);
   }
   couper(ingredient, outil) {
     ingredient.etat = outil.action;
   }
+  remplirSacDeCourse(epicerie) {
+    let monPanier = this.mainDroite.contenu;
+    for (let i = monPanier.length - 1; i >= 0; i--) {
+      this.mainGauche.prendre(monPanier[i], monPanier);
+      this.mainGauche.mettrePanier(this.sacCourse);
+    }
+    epicerie.paniers.push(this.mainDroite.contenu);
+    this.mainDroite.contenu = null;
+  }
 }
 
 class Main {
-  constructor(nom) {
+  constructor(nom, personne) {
+    this.personne = personne;
     this.nom = nom;
-    this.contenu = [];
+    this.contenu = "";
+    this.type = "";
   }
 
-  prendre(produit) {
+  prendre(produit, contenantOrigine) {
+    this.contenu = produit;
+    this.type = produit.nom;
+    contenantOrigine.splice(contenantOrigine.indexOf(produit), 1);
+    console.log(`${this.nom} a pris ${this.type}`);
     this.contenu.push(produit);
   }
-  mettre(produit, contenant) {
-    contenant.push(this.contenu[this.contenu.indexOf(produit)]);
+  mettrePanier(contenant) {
+    contenant.push(this.contenu);
+    this.contenu = null;
   }
 }
 class Outil {
@@ -59,9 +80,9 @@ class Lieu {
 }
 
 class Poele extends Outil {
-  constructor(nom, action, contenu) {
+  constructor(nom, action) {
     super(nom, action);
-    this.contenu = contenu;
+    this.contenu = [];
   }
 
   cuir(produit) {
@@ -83,4 +104,4 @@ class Bol extends Outil {
   }
 }
 
-export { Personne, Lieu, Ingredient };
+export { Personne, Lieu, Ingredient, Outil, Poele, Bol };
