@@ -3,15 +3,37 @@ class Personne {
     this.nom = nom;
     this.lieu = lieu;
     this.argent = argent;
-    this.mainDroite = { nom: "mainDroite", prendre() {} };
-    this.mainGauche = { nom: "mainGauche", prendre() {} };
+    this.mainDroite = Main("main droite");
+    this.mainGauche = Main("main Gauche");
+    this.sacCourse = [];
   }
 
-  seDeplacer(lieu) {}
-  payerArticle(article) {}
-  couper(ingredient, outil) {}
+  seDeplacer(lieu) {
+    this.lieu = lieu;
+  }
+  payerArticle(article) {
+    this.argent -= article.prix;
+
+    this.mainDroite.mettre(article, this.sacCourse);
+  }
+  couper(ingredient, outil) {
+    ingredient.etat = outil.action;
+  }
 }
 
+class Main {
+  constructor(nom) {
+    this.nom = nom;
+    this.contenu = [];
+  }
+
+  prendre(produit) {
+    this.contenu.push(produit);
+  }
+  mettre(produit, contenant) {
+    contenant.push(this.contenu[this.contenu.indexOf(produit)]);
+  }
+}
 class Outil {
   constructor(nom, action) {
     this.nom = nom;
@@ -20,9 +42,9 @@ class Outil {
 }
 
 class Ingredient {
-  constructor(nom, etats, prix) {
+  constructor(nom, etat, prix) {
     this.nom = nom;
-    this.etats = etats;
+    this.etat = etat;
     this.prix = prix;
   }
 }
@@ -35,3 +57,30 @@ class Lieu {
     this.ingredients = ingredients;
   }
 }
+
+class Poele extends Outil {
+  constructor(nom, action, contenu) {
+    super(nom, action);
+    this.contenu = contenu;
+  }
+
+  cuir(produit) {
+    setTimeout(() => {
+      produit.etat = this.action;
+    }, 4000);
+  }
+}
+
+class Bol extends Outil {
+  constructor(nom, action, contenu) {
+    super(nom, action);
+    this.contenu = contenu;
+  }
+
+  melanger(nomMelange) {
+    let resultMelange = new Ingredient(nomMelange, "pas cuit");
+    this.contenu = [resultMelange];
+  }
+}
+
+export { Personne, Lieu, Ingredient };
