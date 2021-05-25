@@ -1,7 +1,7 @@
 import { Ingredient, Lieu, Personne, Outil, Poele, Bol } from "./classes.js";
 
 let maison = new Lieu("Casa", [], []);
-let client = new Personne("Elson", maison, 50);
+let client = new Personne("Elson", "", 50);
 let couteau = new Outil("le couteau", "coupé");
 let poele = new Poele(" la poele", "cuit");
 

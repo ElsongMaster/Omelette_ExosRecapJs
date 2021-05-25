@@ -9,14 +9,20 @@ class Personne {
   }
 
   seDeplacer(lieu) {
+    if (
+      this.lieu.constructor.name == "Lieu" &&
+      this.lieu.personnes.length > 0
+    ) {
+      this.lieu.personnes.splice(this.lieu.personnes.indexOf(this));
+    }
     console.log(
       `${this.nom} est actuellement à ${
         lieu.nom == "Casa" ? "la " + lieu.nom : "l' " + lieu.nom
       }`
     );
 
-    this.lieu = lieu;
     lieu.personnes.push(this);
+    this.lieu = lieu;
   }
   payerArticle(article) {
     this.argent -= article.prix;

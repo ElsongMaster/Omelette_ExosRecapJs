@@ -13,7 +13,7 @@ let preparationOmelette = () => {
   payerArticle(client);
   client.seDeplacer(maison);
   console.log("Je suis prêt à cuisiner mon omelette");
-  //j'enleve mes ingrédients du panier
+
   videMonPanier(client, bol);
   console.log(
     "Zut j'ai oublié de remettre mon panier, je retourne a l'épicerie"
